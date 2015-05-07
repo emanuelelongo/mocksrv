@@ -29,5 +29,5 @@ node mocksrv -o hello
 
 ```bash
 //wait connection on 8080 port, send content of output.txt file as response after 100 ms
-node mocksrv -p 8080  -of output.txt -d 100
+node mocksrv -p 8080 -of output.txt -d 100
 ```

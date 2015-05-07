@@ -27,15 +27,15 @@ express()
 	console.log("headers:", req.headers);
 	console.log("body:", req.body);
 	setTimeout(function(){
-		if(errorCode) {
-			res.statusCode = errorCode;
-			res.end('Oooops!');
-			console.log("###", (new Date()).toLocaleTimeString(), "###");
-			console.log("error sent", errorCode);
-			return;
-		}
 		var now = (new Date()).toLocaleTimeString();
 		res.end(outStr || now);
+		if(errorCode) {
+			res.statusCode = errorCode;
+			console.log("###", (new Date()).toLocaleTimeString(), "###");
+			console.log("sent", errorCode, "error");
+			console.log("response:", outStr || now);
+			return;
+		}
 		console.log("###", now, "###");
 		console.log("response sent:", outStr || now);
 	}, delay);
