@@ -8,7 +8,7 @@ var port = argv.opts.p || 3000;
 var outputFile = argv.opts.of;
 var output = argv.opts.o;
 
-if(argv.params[0]) {
+if(argv.params[0] == "help") {
 	console.log("usage: node mocksrv [-p port] [-d delay] [-e errorCode]");
 	return;
 }
@@ -17,6 +17,8 @@ var outStr = argv.opts.o;
 if(outputFile) {
 	outStr = fs.readFileSync(outputFile).toString();
 }
+
+console.log("listenig on port", port, "...");
 
 express()
 .use(bodyParser.json())
@@ -28,16 +30,15 @@ express()
 	console.log("body:", req.body);
 	setTimeout(function(){
 		var now = (new Date()).toLocaleTimeString();
-		res.end(outStr || now);
+		console.log("###", now, "###");
 		if(errorCode) {
 			res.statusCode = errorCode;
-			console.log("###", (new Date()).toLocaleTimeString(), "###");
 			console.log("sent", errorCode, "error");
-			console.log("response:", outStr || now);
+			res.end();
 			return;
 		}
-		console.log("###", now, "###");
 		console.log("response sent:", outStr || now);
+		res.end(outStr || now);
 	}, delay);
 })
 .listen(port);
