@@ -37,7 +37,7 @@ var log = function() {
 express()
 .use(bodyParser.json())
 .all("*", function(req, res) {	
-	log("\n*************************************************************");
+	log("\nvvvvvvvvvvvvvvvvvvvvvvvvvvvv" + new Date() + "vvvvvvvvvvvvvvvvvvvvvvvvvvvv");
 	log(req.method, req.originalUrl);
 	for(var h in req.headers) {
 		log(h, ": \"", req.headers[h], "\"");	
@@ -48,6 +48,7 @@ express()
 		var now = (new Date()).toLocaleTimeString();
 		res.statusCode = statusCode;
 		res.end(outStr || now);
+		log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^" + new Date() + "^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
 	}, delay);
 })
 .listen(port, host);
